@@ -1,14 +1,19 @@
 package ubaid.group.onlinebank.entities;
 
 import java.time.LocalDate;
+import java.util.Set;
 
+import ubaid.group.onlinebank.entities.Role;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -30,16 +35,17 @@ import lombok.Setter;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int uid;
+	private int id;
 	@Column(nullable = false)
-	//@Pattern(regexp="^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*$",message="Enter the right email format.")
+	private String name;
+	@Column(nullable = false,unique = true)
+	private String username;
+	@Column(nullable = false,unique = true)
 	private String email;
 	@Column(nullable = false)
-	
-	//@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$",message = "password should contain atleast one digit, one uppercase ,one lower case ,a special charcter and should be of length 8-20.")
 	private String password;
-	//@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$",message = "password should contain atleast one digit, one uppercase ,one lower case ,a special charcter and should be of length 8-20.")
-	private String confirmPassword;
+	@ManyToMany(fetch = FetchType.EAGER,cascade =  CascadeType.ALL)
+	private Set<Role> roles;
 	
 	
 	
