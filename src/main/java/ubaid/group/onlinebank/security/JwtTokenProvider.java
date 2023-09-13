@@ -3,7 +3,7 @@ package ubaid.group.onlinebank.security;
 import java.security.Key;
 import java.util.Date;
 
-import ubaid.group.onlinebank.exception.EmployeeAppException;
+import ubaid.group.onlinebank.exception.BankAppException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -65,16 +65,16 @@ public class JwtTokenProvider  {
 			return true;
 		}
 		catch(MalformedJwtException ex) {
-			throw new EmployeeAppException(HttpStatus.BAD_REQUEST, "Invalid Token");
+			throw new BankAppException(HttpStatus.BAD_REQUEST, "Invalid Token");
 		}
 		catch(ExpiredJwtException ex) {
-			throw new EmployeeAppException(HttpStatus.BAD_REQUEST, "Token Expired");
+			throw new BankAppException(HttpStatus.BAD_REQUEST, "Token Expired");
 		}
 		catch(UnsupportedJwtException ex) {
-			throw new EmployeeAppException(HttpStatus.BAD_REQUEST, "Token is not supported");
+			throw new BankAppException(HttpStatus.BAD_REQUEST, "Token is not supported");
 		}
 		catch(IllegalArgumentException ex) {
-			throw new EmployeeAppException(HttpStatus.BAD_REQUEST, "Token Claims String is empty");
+			throw new BankAppException(HttpStatus.BAD_REQUEST, "Token Claims String is empty");
 		}
 		
 	}
